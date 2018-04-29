@@ -2,7 +2,7 @@ package com.senither.shakespear;
 
 public class Main {
 
-    private static final int ROUNDS = 1000;
+    private static final int ROUNDS = 100;
 
     public static void main(String[] args) {
         String fullSonnet = "To be, or not to be, that is the question:\n" +
@@ -40,21 +40,21 @@ public class Main {
                 "And lose the name of action.";
 
 
-        StringBuilder sonnet = new StringBuilder();
-        for (int i = 0; i < fullSonnet.length(); i++) {
+        String startingPoint = "To b";
+        StringBuilder sonnet = new StringBuilder(startingPoint);
+        for (int i = startingPoint.length(); i < fullSonnet.length(); i++) {
             sonnet.append(fullSonnet.charAt(i));
-
             run(sonnet.toString());
         }
     }
 
     public static void run(String sonnet) {
         System.out.println("Running generic algorithm to try and learn to write the following sentence:\n");
-        System.out.println("\t" + sonnet);
+        System.out.println(sonnet);
         System.out.println("\nRunning populations...");
 
         int generations = 0;
-        int jump = 100;
+        int jump = 10;
         int next = jump - 1;
         long start = System.currentTimeMillis();
         long milliseconds = start;
@@ -84,6 +84,6 @@ public class Main {
 
         System.out.println("Done!\n");
         System.out.println("It took an average of " + (generations / ROUNDS) + " generations to get to the end result.");
-        System.out.println("Total time taken was " + (total) + " ms (An average of " + (total / ROUNDS) + " ms each population)");
+        System.out.println("Total time taken was " + (total) + " ms (An average of " + (total / ROUNDS) + " ms each population)\n");
     }
 }
