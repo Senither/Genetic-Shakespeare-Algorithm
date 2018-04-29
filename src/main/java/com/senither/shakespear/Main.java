@@ -12,8 +12,8 @@ public class Main {
         System.out.println("\nRunning populations...");
 
         int generations = 0;
-        int next = 9;
-        int jump = 10;
+        int jump = 100;
+        int next = jump - 1;
         long milliseconds = System.currentTimeMillis();
         for (int i = 0; i < ROUNDS; i++) {
             if (i % jump == 0 || i == 0) {
@@ -32,7 +32,8 @@ public class Main {
 
             if (i == next) {
                 next += jump;
-                System.out.println(" | Task took " + (System.currentTimeMillis() - milliseconds) + " ms");
+                long time = (System.currentTimeMillis() - milliseconds);
+                System.out.println(" | Task took " + time + " ms (~" + (time / jump) + " ms each)");
                 milliseconds = System.currentTimeMillis();
             }
         }

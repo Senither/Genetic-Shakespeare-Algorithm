@@ -23,6 +23,7 @@ public class DNA {
             }
         }
         fitness = (float) score / (float) target.length();
+        fitness = fitness * fitness * fitness * fitness; // fitness^4
     }
 
     public double getFitness() {
@@ -49,7 +50,7 @@ public class DNA {
     public void mutate(float mutationRate) {
         for (int i = 0; i < genes.length; i++) {
             if (random.nextFloat() < mutationRate) {
-                this.genes[i] = CharacterComparator.getRandom();
+                genes[i] = CharacterComparator.getRandom();
             }
         }
     }
