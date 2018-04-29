@@ -2,30 +2,41 @@ package com.senither.shakespear;
 
 public class Main {
 
+    private static final int ROUNDS = 1000;
+
     public static void main(String[] args) {
         String sonnet = "To be or not to be.";
 
-        Population population = new Population(sonnet, Settings.MUTATION_RATE, Settings.POPULATION_MAX);
+        System.out.println("Running generic algorithm to try and learn to write the following sentence:\n");
+        System.out.println("\t" + sonnet);
+        System.out.println("\nRunning populations...");
 
-        while (!population.isFinished()) {
-            population.naturalSelection();
-            population.generate();
-            population.calcFitness();
-
-            if (population.getGenerations() % 25 == 0) {
-                System.out.println(
-                        population.getGenerations() + " : " + population.getMaxFitness() + " : " + population.getBest()
-                );
+        int generations = 0;
+        int next = 9;
+        int jump = 10;
+        long milliseconds = System.currentTimeMillis();
+        for (int i = 0; i < ROUNDS; i++) {
+            if (i % jump == 0 || i == 0) {
+                System.out.print("Running population #" + i + " - #" + (i + jump));
             }
 
-            population.evaluate();
+            Population population = new Population(sonnet, Settings.MUTATION_RATE, Settings.POPULATION_MAX);
+            while (!population.isFinished()) {
+                population.naturalSelection();
+                population.generate();
+                population.calcFitness();
 
-            if (population.getGenerations() > 50000) {
-                System.out.println("Exiting population loop, took too long!");
-                break;
+                population.evaluate();
+            }
+            generations += population.getGenerations();
+
+            if (i == next) {
+                next += jump;
+                System.out.println(" | Task took " + (System.currentTimeMillis() - milliseconds) + " ms");
+                milliseconds = System.currentTimeMillis();
             }
         }
-
-        System.out.println("Done!\nGenerations: " + population.getGenerations() + "\nResult: " + population.getBest() + "\nExcepted Result: " + sonnet);
+        System.out.println("Done!\n");
+        System.out.println("It took an average of " + (generations / ROUNDS) + " generations to get to the end result");
     }
 }
