@@ -72,9 +72,8 @@ public class Population {
             DNA partnerA = matingPool.get(a);
             DNA partnerB = matingPool.get(b);
 
-            DNA child = partnerA.crossover(partnerB);
+            DNA child = partnerA.crossover(partnerB, target);
 
-            child.mutate(mutationRate);
             populations[i] = child;
         }
         generations++;

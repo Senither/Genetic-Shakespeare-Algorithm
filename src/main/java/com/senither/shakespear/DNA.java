@@ -30,29 +30,21 @@ public class DNA {
         return fitness;
     }
 
-    public DNA crossover(DNA partner) {
+    public DNA crossover(DNA partner, String target) {
         // A new child
         DNA child = new DNA(this.genes.length);
 
-        int midpoint = random.nextInt(genes.length); // Pick a midpoint
-
         for (int i = 0; i < genes.length; i++) {
-            if (i > midpoint) {
+            if (genes[i] == target.charAt(i)) {
                 child.genes[i] = genes[i];
-            } else {
+            } else if (partner.genes[i] == target.charAt(i)) {
                 child.genes[i] = partner.genes[i];
+            } else {
+                child.genes[i] = CharacterBuilder.getRandom();
             }
         }
 
         return child;
-    }
-
-    public void mutate(float mutationRate) {
-        for (int i = 0; i < genes.length; i++) {
-            if (random.nextFloat() < mutationRate) {
-                genes[i] = CharacterBuilder.getRandom();
-            }
-        }
     }
 
     public String getPhrase() {

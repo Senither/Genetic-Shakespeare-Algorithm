@@ -39,7 +39,6 @@ public class Main {
                 "With this regard their currents turn awry\n" +
                 "And lose the name of action.";
 
-
         String startingPoint = "To b";
         StringBuilder sonnet = new StringBuilder(startingPoint);
         for (int i = startingPoint.length(); i < fullSonnet.length(); i++) {
@@ -68,7 +67,6 @@ public class Main {
                 population.naturalSelection();
                 population.generate();
                 population.calcFitness();
-
                 population.evaluate();
             }
             generations += population.getGenerations();
