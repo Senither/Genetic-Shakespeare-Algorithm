@@ -48,6 +48,8 @@ public class Main {
     }
 
     public static void run(String sonnet) {
+        CharacterBuilder builder = new CharacterBuilder(sonnet);
+
         System.out.println("Running generic algorithm to try and learn to write the following sentence:\n");
         System.out.println(sonnet);
         System.out.println("\nRunning populations...");
@@ -62,7 +64,7 @@ public class Main {
                 System.out.print("Running population #" + i + " - #" + (i + jump));
             }
 
-            Population population = new Population(sonnet, Settings.MUTATION_RATE, Settings.POPULATION_MAX);
+            Population population = new Population(sonnet, builder, Settings.MUTATION_RATE, Settings.POPULATION_MAX);
             while (!population.isFinished()) {
                 population.naturalSelection();
                 population.generate();

@@ -1,17 +1,16 @@
 package com.senither.shakespear;
 
-import java.util.Random;
-
 public class DNA {
 
-    private final Random random = new Random();
+    private final CharacterBuilder builder;
     private final char[] genes;
     private float fitness;
 
-    public DNA(int size) {
+    public DNA(int size, CharacterBuilder builder) {
+        this.builder = builder;
         genes = new char[size];
         for (int i = 0; i < genes.length; i++) {
-            genes[i] = CharacterBuilder.getRandom();
+            genes[i] = builder.getRandom();
         }
     }
 
@@ -32,7 +31,7 @@ public class DNA {
 
     public DNA crossover(DNA partner, String target) {
         // A new child
-        DNA child = new DNA(this.genes.length);
+        DNA child = new DNA(this.genes.length, builder);
 
         for (int i = 0; i < genes.length; i++) {
             if (genes[i] == target.charAt(i)) {
@@ -40,7 +39,7 @@ public class DNA {
             } else if (partner.genes[i] == target.charAt(i)) {
                 child.genes[i] = partner.genes[i];
             } else {
-                child.genes[i] = CharacterBuilder.getRandom();
+                child.genes[i] = builder.getRandom();
             }
         }
 

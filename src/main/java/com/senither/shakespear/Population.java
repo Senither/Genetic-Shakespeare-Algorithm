@@ -25,7 +25,7 @@ public class Population {
     // The best result with the highest fitness
     private String best;
 
-    public Population(String target, float mutationRate, int populationMax) {
+    public Population(String target, CharacterBuilder builder, float mutationRate, int populationMax) {
         this.target = target;
         this.mutationRate = mutationRate;
 
@@ -37,7 +37,7 @@ public class Population {
         matingPool = new ArrayList<>();
 
         for (int i = 0; i < populations.length; i++) {
-            populations[i] = new DNA(this.target.length());
+            populations[i] = new DNA(this.target.length(), builder);
         }
 
         this.calcFitness();
