@@ -6,12 +6,10 @@ public class DNA {
 
     private final Random random = new Random();
     private final char[] genes;
-    private double fitness;
+    private float fitness;
 
     public DNA(int size) {
         genes = new char[size];
-        fitness = 0;
-
         for (int i = 0; i < genes.length; i++) {
             genes[i] = CharacterComparator.getRandom();
         }
@@ -24,7 +22,7 @@ public class DNA {
                 score++;
             }
         }
-        fitness = Math.pow((score + 0.01D) / target.length(), 4);
+        fitness = (float) score / (float) target.length();
     }
 
     public double getFitness() {
@@ -50,7 +48,7 @@ public class DNA {
 
     public void mutate(float mutationRate) {
         for (int i = 0; i < genes.length; i++) {
-            if (random.nextInt(1) < mutationRate) {
+            if (random.nextFloat() < mutationRate) {
                 this.genes[i] = CharacterComparator.getRandom();
             }
         }

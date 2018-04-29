@@ -12,15 +12,20 @@ public class Main {
             population.generate();
             population.calcFitness();
 
-            if (population.getGenerations() % 1000 == 0) {
+            if (population.getGenerations() % 25 == 0) {
                 System.out.println(
                         population.getGenerations() + " : " + population.getMaxFitness() + " : " + population.getBest()
                 );
             }
 
             population.evaluate();
+
+            if (population.getGenerations() > 50000) {
+                System.out.println("Exiting population loop, took too long!");
+                break;
+            }
         }
 
-        System.out.println("Done!\nGenerations: " + population.getGenerations());
+        System.out.println("Done!\nGenerations: " + population.getGenerations() + "\nResult: " + population.getBest() + "\nExcepted Result: " + sonnet);
     }
 }

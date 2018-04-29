@@ -77,8 +77,8 @@ public class Population {
     }
 
     public void calcFitness() {
-        for (DNA aPopulation : populations) {
-            aPopulation.calcFitness(target);
+        for (DNA dna : populations) {
+            dna.calcFitness(target);
         }
     }
 
