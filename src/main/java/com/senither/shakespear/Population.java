@@ -6,33 +6,38 @@ import java.util.Random;
 
 public class Population {
 
-    // Stuff
-    private final String target;
-    private final float mutationRate;
-    private final DNA[] populations;
-    private final List<DNA> matingPool;
-    // Thing
-    private final float perfectScore = 1.0F;
+    // Random object to generate random values
     private final Random random = new Random();
-    // Test
+    // The target that should be attempted to be reached
+    private final String target;
+    // The mutation rate, defaults to 10%
+    private final float mutationRate;
+    // The array of DNAs for our populations array
+    private final DNA[] populations;
+    // The list of mating pools, used before generating the next generation
+    private final List<DNA> matingPool;
+    // The number of generations the population has gone through
     private int generations;
+    // The highest fitness for the current generation
     private double maxFitness;
+    // Determine if the population has finished or not
     private boolean finished;
+    // The best result with the highest fitness
     private String best;
 
     public Population(String target, float mutationRate, int populationMax) {
         this.target = target;
         this.mutationRate = mutationRate;
 
-        this.finished = false;
-        this.generations = 0;
-        this.best = "";
+        finished = false;
+        generations = 0;
+        best = "";
 
-        this.populations = new DNA[populationMax];
-        this.matingPool = new ArrayList<>();
+        populations = new DNA[populationMax];
+        matingPool = new ArrayList<>();
 
-        for (int i = 0; i < this.populations.length; i++) {
-            this.populations[i] = new DNA(this.target.length());
+        for (int i = 0; i < populations.length; i++) {
+            populations[i] = new DNA(this.target.length());
         }
 
         this.calcFitness();
@@ -43,14 +48,13 @@ public class Population {
 
         maxFitness = 0.0D;
         for (int i = 0; i < populations.length; i++) {
-            if (this.populations[i].getFitness() > maxFitness) {
-                maxFitness = this.populations[i].getFitness();
+            if (populations[i].getFitness() > maxFitness) {
+                maxFitness = populations[i].getFitness();
             }
         }
 
-        // Based on fitness, each member will get added to the mating pool a certain number of times
+        // Based on fitness, each member will get added to the mating pool a certain number of times,
         // a higher fitness = more entries to mating pool = more likely to be picked as a parent
-        // a lower fitness = fewer entries to mating pool = less likely to be picked as a parent
         for (DNA dna : populations) {
             double fitness = (dna.getFitness() / (maxFitness - 0));
             double n = Math.floor(fitness * 100); // Arbitrary multiplier, we can also use monte carlo method
@@ -71,9 +75,9 @@ public class Population {
             DNA child = partnerA.crossover(partnerB);
 
             child.mutate(mutationRate);
-            this.populations[i] = child;
+            populations[i] = child;
         }
-        this.generations++;
+        generations++;
     }
 
     public void calcFitness() {
@@ -90,15 +94,15 @@ public class Population {
         double worldRecord = 0.0D;
         int index = 0;
         for (int i = 0; i < populations.length; i++) {
-            if (this.populations[i].getFitness() > worldRecord) {
+            if (populations[i].getFitness() > worldRecord) {
                 index = i;
-                worldRecord = this.populations[i].getFitness();
+                worldRecord = populations[i].getFitness();
             }
         }
 
-        this.best = this.populations[index].getPhrase();
-        if (worldRecord == perfectScore) {
-            this.finished = true;
+        best = populations[index].getPhrase();
+        if (worldRecord == 1.0F) {
+            finished = true;
         }
     }
 

@@ -2,7 +2,7 @@ package com.senither.shakespear;
 
 import java.util.Random;
 
-public class CharacterComparator {
+public class CharacterBuilder {
 
     private static final Random RANDOM = new Random();
     private static final char[] ACCEPTABLE_CHARACTERS = " qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM,.:;-'!\"'\n".toCharArray();

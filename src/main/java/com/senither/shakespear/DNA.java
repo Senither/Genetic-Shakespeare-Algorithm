@@ -11,7 +11,7 @@ public class DNA {
     public DNA(int size) {
         genes = new char[size];
         for (int i = 0; i < genes.length; i++) {
-            genes[i] = CharacterComparator.getRandom();
+            genes[i] = CharacterBuilder.getRandom();
         }
     }
 
@@ -36,7 +36,6 @@ public class DNA {
 
         int midpoint = random.nextInt(genes.length); // Pick a midpoint
 
-        // Half from one, half from the other
         for (int i = 0; i < genes.length; i++) {
             if (i > midpoint) {
                 child.genes[i] = genes[i];
@@ -44,13 +43,14 @@ public class DNA {
                 child.genes[i] = partner.genes[i];
             }
         }
+
         return child;
     }
 
     public void mutate(float mutationRate) {
         for (int i = 0; i < genes.length; i++) {
             if (random.nextFloat() < mutationRate) {
-                genes[i] = CharacterComparator.getRandom();
+                genes[i] = CharacterBuilder.getRandom();
             }
         }
     }
